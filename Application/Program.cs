@@ -44,7 +44,7 @@ try
       opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
         sqlServerOptionsAction: postgreOptions =>
         {
-            postgreOptions.MigrationsAssembly("hero-trainer-app");
+            postgreOptions.MigrationsAssembly("Application");
         }));
 
 

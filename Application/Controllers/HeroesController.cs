@@ -28,7 +28,7 @@ namespace hero_trainer_app.Controllers
             this._mapper = mapper;
         }
 
-        [HttpPost("TrainHero")]
+        [HttpPost]
         public async Task<IActionResult> TrainHero(HeroTrainDTO heroTrainDTO)
         {
             string trainerId = "";
