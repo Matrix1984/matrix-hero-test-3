@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { SubSink } from 'subsink';
@@ -25,7 +26,8 @@ export class HeroesMainComponent implements OnInit,OnDestroy  {
 
   constructor(private router: Router,
     private accountService: AccountService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.accountService.trainer.subscribe(x => {
@@ -37,12 +39,13 @@ export class HeroesMainComponent implements OnInit,OnDestroy  {
 
  
 
-  trainHero(heroId: number){
-    console.info('hero id ',heroId);
+  trainHero(heroId: number){ 
      this.http.post(`${environment.apiUrl}Heroes`,{ heroId: heroId}).subscribe(res=>{
-      console.log(res);
+      this._snackBar.open('Hero was trained!', 'Close');
     },
-    err=>{
+    err=>{   
+    
+      this._snackBar.open(err, 'Close');
       console.error(err)
     });
   }

@@ -116,21 +116,27 @@ namespace Application.Migrations
 
             modelBuilder.Entity("Models.Entities.TrainingSession", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TrainingSessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrainingSessionId"), 1L, 1);
 
                     b.Property<int>("HeroId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TrainingSessionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("TrainingSessionStart")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("TrainingSessionId");
 
                     b.HasIndex("HeroId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("TrainingSessions");
                 });

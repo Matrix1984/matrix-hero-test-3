@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Application.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,14 +63,15 @@ namespace Application.Migrations
                 name: "TrainingSessions",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TrainingSessionId = table.Column<int>(type: "int", nullable: false),
+                    TrainingSessionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TrainingSessionStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HeroId = table.Column<int>(type: "int", nullable: false)
+                    HeroId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TrainingSessions", x => x.Id);
+                    table.PrimaryKey("PK_TrainingSessions", x => x.TrainingSessionId);
                     table.ForeignKey(
                         name: "FK_TrainingSessions_Heroes_HeroId",
                         column: x => x.HeroId,
@@ -94,6 +95,11 @@ namespace Application.Migrations
                 name: "IX_TrainingSessions_HeroId",
                 table: "TrainingSessions",
                 column: "HeroId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingSessions_Id",
+                table: "TrainingSessions",
+                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

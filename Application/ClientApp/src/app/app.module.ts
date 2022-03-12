@@ -15,6 +15,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import {MatTableModule} from '@angular/material/table';
     ReactiveFormsModule,
     MatButtonModule,
     MatTableModule,
+    MatSnackBarModule,
     RouterModule.forRoot([
      { path: '', component: HeroesMainComponent, pathMatch: 'full',canActivate: [AuthGuard] }, 
      { path: 'login', component: LoginComponent }, 
