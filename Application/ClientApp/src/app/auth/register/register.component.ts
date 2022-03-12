@@ -37,22 +37,19 @@ export class RegisterComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit() {
-      this.submitted = true;
-       console.log(this.form.value);
- 
-      console.log('form',this.form);
+      this.submitted = true; 
+      console.info('state of form validation.',this.form.invalid);
       // stop here if form is invalid
       if (this.form.invalid) {
           return;
       }
   
       this.loading = true;
-      
+
       this.accountService.register(this.form.value)
           .pipe(first())
           .subscribe({
-              next: () => {
-                console.log('200');
+              next: () => { 
                   this.router.navigate([''], { relativeTo: this.route });
               },
               error: error => { 

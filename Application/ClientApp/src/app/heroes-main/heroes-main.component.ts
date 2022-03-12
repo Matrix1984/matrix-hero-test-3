@@ -31,20 +31,16 @@ export class HeroesMainComponent implements OnInit,OnDestroy  {
 
   ngOnInit(): void {
     this.accountService.trainer.subscribe(x => {
-      this.trainer = x;
-      console.info('trainer',this.trainer);
+      this.trainer = x; 
       this.loadHeroes();
     }); 
-  }
-
- 
+  } 
 
   trainHero(heroId: number){ 
      this.http.post(`${environment.apiUrl}Heroes`,{ heroId: heroId}).subscribe(res=>{
       this._snackBar.open('Hero was trained!', 'Close');
     },
-    err=>{   
-    
+    err=>{    
       this._snackBar.open(err, 'Close');
       console.error(err)
     });
@@ -52,7 +48,7 @@ export class HeroesMainComponent implements OnInit,OnDestroy  {
 
   loadHeroes(){
     this.http.get<Hero[]>(`${environment.apiUrl}Heroes`).subscribe(res=>{
-      console.log(res);
+ 
       this.dataSource=res;
     },
     err=>{

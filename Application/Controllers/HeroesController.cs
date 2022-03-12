@@ -57,17 +57,21 @@ namespace hero_trainer_app.Controllers
                                                       && n.Id == trainerId
                                                       select n).ToList();
 
-            if (trainingSessions.Count > 5)
+            if (trainingSessions.Count >= 5)
                 return BadRequest("A hero cant be trained more than 5 times a day.");
 
             Random rnd = new Random();
 
             int randomPowerBoost = rnd.Next(0, 10);
 
+            decimal powerBoostIncreasePercentage = Convert.ToDecimal(randomPowerBoost / 100M);
+
+            decimal powerBoostDecreaseTotal = hero.CurrentPower * powerBoostIncreasePercentage;
+
             if (hero.CurrentPower == 0)
                 hero.CurrentPower = 1;
             else
-                hero.CurrentPower += hero.CurrentPower * (randomPowerBoost / 100);
+                hero.CurrentPower  += powerBoostDecreaseTotal;
 
             hero.HeroTrainingDate = DateTime.UtcNow;
 
