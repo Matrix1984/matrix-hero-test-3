@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "7a477cb7-a364-46a8-850a-03153f8ab09f",
+		"name": "matrix-heroes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Dan\",\r\n    \"password\":\"Rapidfire30!#!\",\r\n    \"email\":\"pent@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7014/api/Auth/Register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7014",
+					"path": [
+						"api",
+						"Auth",
+						"Register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"LoginUserName\":\"Dan24\",\r\n    \"Password\":\"Rapidfire30!#!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7014/api/Auth/Login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7014",
+					"path": [
+						"api",
+						"Auth",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
