@@ -51,7 +51,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element"> 
-                <span *ngIf="trainer.trainerId === element.Id">
+                <span *ngIf="trainer.trainerId === element.trainerId">
                     <button mat-button color="primary"  (click)="trainHero(element.heroId)">Train</button>
                 </span> 
             </td>

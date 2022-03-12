@@ -82,7 +82,8 @@ namespace hero_trainer_app.Controllers
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    expiration = token.ValidTo,
+                    trainerId = trainer.Id
                 });
             }
             return Unauthorized();

@@ -29,7 +29,8 @@ export class HeroesMainComponent implements OnInit,OnDestroy  {
 
   ngOnInit(): void {
     this.accountService.trainer.subscribe(x => {
-      this.trainer = x
+      this.trainer = x;
+      console.info('trainer',this.trainer);
       this.loadHeroes();
     }); 
   }
