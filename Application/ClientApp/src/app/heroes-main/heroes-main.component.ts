@@ -13,16 +13,16 @@ import { AccountService } from '../services/account-service.service';
   templateUrl: './heroes-main.component.html',
   styleUrls: ['./heroes-main.component.css']
 })
-export class HeroesMainComponent implements OnInit,OnDestroy  {
+export class HeroesMainComponent implements OnInit, OnDestroy {
 
- // private subs = new SubSink();
-  
+  // private subs = new SubSink();
+
   trainer: Trainer;
 
   dataSource: Hero[];
- 
-  displayedColumns=['heroId','guidId','heroTrainingDate','name',
-                    'colors','startPower','currentPower','actions'];
+
+  displayedColumns = ['heroId', 'guidId', 'heroTrainingDate', 'name',
+    'colors', 'startPower', 'currentPower', 'actions'];
 
   constructor(private router: Router,
     private accountService: AccountService,
@@ -31,37 +31,36 @@ export class HeroesMainComponent implements OnInit,OnDestroy  {
 
   ngOnInit(): void {
     this.accountService.trainer.subscribe(x => {
-      this.trainer = x; 
+      this.trainer = x;
       this.loadHeroes();
-    }); 
-  } 
-
-  trainHero(heroId: number){ 
-     this.http.post(`${environment.apiUrl}Heroes`,{ heroId: heroId}).subscribe(res=>{
-      this._snackBar.open('Hero was trained!', 'Close');
-    },
-    err=>{    
-      this._snackBar.open(err, 'Close');
-      console.error(err)
     });
   }
 
-  loadHeroes(){
-    this.http.get<Hero[]>(`${environment.apiUrl}Heroes`).subscribe(res=>{
- 
-      this.dataSource=res;
+  trainHero(heroId: number) {
+    this.http.post(`${environment.apiUrl}Heroes`, { heroId: heroId }).subscribe(res => {
+      this._snackBar.open('Hero was trained!', 'Close'); 
     },
-    err=>{
-      console.error(err)
-    });
+      err => {
+        this._snackBar.open(err, 'Close');
+        console.error(err)
+      });
+  }
+
+  loadHeroes() {
+    this.http.get<Hero[]>(`${environment.apiUrl}Heroes`).subscribe(res => {
+
+      this.dataSource = res;
+    },
+      err => {
+        console.error(err)
+      });
   }
 
   logout() {
     this.accountService.logout();
-  }
-
+  } 
+  
   ngOnDestroy() {
-  //  this.subs.unsubscribe();
+    //  this.subs.unsubscribe();
   }
 }
- 
