@@ -43,22 +43,18 @@ namespace hero_trainer_app.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseDTO() { Status = "Error",
                     Message = "User already exists!" });
 
-            Trainer user = new()
+            Trainer trainer = new()
             {
                 Email = trainerCreateDTO.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = trainerCreateDTO.Name
             };
 
-            var result = await _userManager.CreateAsync(user, trainerCreateDTO.Password);
+            var result = await _userManager.CreateAsync(trainer, trainerCreateDTO.Password);
 
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseDTO { Status = "Error", 
-                    Message = "User creation failed! Please check user details and try again." });
-      
-            Trainer trainer = new(); 
-
-            await this._trainerRepository.Add(trainer);
+                    Message = "User creation failed! Please check user details and try again." });  
 
             await this._heroRepository.GenerateRandomHeroesForTrainer(trainer.Id);
 
