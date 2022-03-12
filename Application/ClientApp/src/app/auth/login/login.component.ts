@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private accountService: AccountService 
+      private accountService: AccountService,
+      private _snackBar: MatSnackBar
   ) { 
   }
 
@@ -48,11 +50,13 @@ export class LoginComponent implements OnInit {
           .pipe(first())
           .subscribe({
               next: () => {
+
                   // get return url from query parameters or default to home page
                   const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                   this.router.navigateByUrl(returnUrl);
               },
-              error: error => { 
+              error: error => {  
+                  this._snackBar.open('User Name or Password are incorrect.', 'Close');
                   console.error(error)
                   this.loading = false;
               }

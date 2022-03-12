@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account-service.service';
 import { SubSink } from 'subsink';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private accountService: AccountService 
+      private accountService: AccountService,
+      private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -37,16 +39,15 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
        console.log(this.form.value);
-      console.log('form invalidity',this.form.invalid);
-      // reset alerts on submit
+ 
       console.log('form',this.form);
       // stop here if form is invalid
       if (this.form.invalid) {
           return;
       }
- 
-
+  
       this.loading = true;
+      
       this.accountService.register(this.form.value)
           .pipe(first())
           .subscribe({
@@ -54,7 +55,8 @@ export class RegisterComponent implements OnInit {
                 console.log('200');
                   this.router.navigate([''], { relativeTo: this.route });
               },
-              error: error => {
+              error: error => { 
+                  this._snackBar.open(error.message, 'Close');
                   console.error(error);
                   this.loading = false;
               }
