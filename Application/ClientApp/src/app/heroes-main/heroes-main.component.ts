@@ -37,6 +37,7 @@ export class HeroesMainComponent implements OnInit,OnDestroy  {
  
 
   trainHero(heroId: number){
+    console.info('hero id ',heroId);
      this.http.post(`${environment.apiUrl}Heroes`,{ heroId: heroId}).subscribe(res=>{
       console.log(res);
     },

@@ -21,9 +21,6 @@ export class LoginComponent implements OnInit {
       private router: Router,
       private accountService: AccountService 
   ) { 
-    if (this.accountService.trainer) {
-     this.router.navigate(['/']);
-    }
   }
 
   ngOnInit() {

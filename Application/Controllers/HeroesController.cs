@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Hero;
 using Models.Entities;
+using System.Security.Claims;
 
 namespace hero_trainer_app.Controllers
 {
@@ -31,7 +32,9 @@ namespace hero_trainer_app.Controllers
         [HttpPost]
         public async Task<IActionResult> TrainHero(HeroTrainDTO heroTrainDTO)
         {
-            string trainerId = "";
+           var claimsIdentity = User.Identity as ClaimsIdentity;
+            Claim someClaim = claimsIdentity.FindFirst("uid");
+            string trainerId = someClaim.Value;
             Hero hero = await this._heroRepository.GetById(heroTrainDTO.HeroId);
 
             if (hero == null)
@@ -39,7 +42,7 @@ namespace hero_trainer_app.Controllers
 
 
             if (hero.Id != trainerId)
-                return Unauthorized();
+                return BadRequest();
 
             DateTime beginningOfDay = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
 
